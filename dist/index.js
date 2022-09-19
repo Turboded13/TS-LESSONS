@@ -54,7 +54,7 @@ let milk = new Product('Пискаревское', 79);
 let juice = new Product('Рофлик', 19);
 let magnit = new Shop([bread, milk], 'Магнит', [Rybak, Akimov, Sizov], 8, 22);
 let five = new Shop([bread, juice], 'Пятёрочка', [Rybak, Akimov], 0, 24);
-let dixy = new Shop([bread, milk], 'Дикси', [Rybak, Akimov], 0, 24);
+let dixy = new Shop([bread, milk], 'Дикси', [Rybak, Akimov], 0, 25);
 let shops = [magnit, dixy, five];
 magnit.employeeCount();
 magnit.productsCount();
