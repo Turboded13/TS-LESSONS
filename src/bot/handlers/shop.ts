@@ -18,8 +18,7 @@ export default new Composer()
         emps[data[1]] = emp1
     })
     .command('getEmp', async ctx => {
-        let data = ctx.message.text.split(' ')[1]
-        if (data in emps) {await ctx.reply(`${emps[data].name}`)} else {await ctx.reply('Работника не существует')}
+        await ctx.reply(`${Object.keys(emps)}`)
     })
     .command('addProduct', async ctx => {
         let data = ctx.message.text.split(' ')
@@ -45,4 +44,32 @@ export default new Composer()
     })
     .command('getShops', async ctx => {
         await ctx.reply(`${Object.keys(shops)}`)
+    })
+    .command('delProd', async ctx => {
+        let data = ctx.message.text.split(' ')
+        if (data.length <= 0) {await ctx.reply('Все продукты отправили на фронт')}
+        if (data.length < 1) {Reflect.deleteProperty(products, data[1])} else {
+            data.forEach(value => (Reflect.deleteProperty(products, value)))
+        }
+        await ctx.reply('Удалено успешно')
+    })
+    .command('getProds', async ctx => {
+        let data = ctx.message.text.split(' ')[1]
+        await ctx.reply(`${Object.keys(products)}`)
+    })
+    .command('delEmp', async ctx => {
+        let data = ctx.message.text.split(' ')
+        if (data.length <= 0) {await ctx.reply('Всех работников мобилизовали')}
+        if (data.length == 1) {Reflect.deleteProperty(emps, data[1])} else {
+            data.forEach(value => (Reflect.deleteProperty(emps, value)))
+        }
+        await ctx.reply('Удалено успешно')
+    })
+    .command('delShop', async ctx => {
+        let data = ctx.message.text.split(' ')
+        if (data.length <= 0) {await ctx.reply('Все магазины закрыли')}
+        if (data.length == 1) {Reflect.deleteProperty(shops, data[1])} else {
+            data.forEach(value => (Reflect.deleteProperty(shops, value)))
+        }
+        await ctx.reply('Удалено успешно')
     })

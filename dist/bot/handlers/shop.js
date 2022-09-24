@@ -23,13 +23,7 @@ exports.default = new telegraf_1.Composer()
     emps[data[1]] = emp1;
 }))
     .command('getEmp', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    let data = ctx.message.text.split(' ')[1];
-    if (data in emps) {
-        yield ctx.reply(`${emps[data].name}`);
-    }
-    else {
-        yield ctx.reply('Работника не существует');
-    }
+    yield ctx.reply(`${Object.keys(emps)}`);
 }))
     .command('addProduct', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     let data = ctx.message.text.split(' ');
@@ -60,4 +54,47 @@ exports.default = new telegraf_1.Composer()
 }))
     .command('getShops', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     yield ctx.reply(`${Object.keys(shops)}`);
+}))
+    .command('delProd', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    let data = ctx.message.text.split(' ');
+    if (data.length <= 0) {
+        yield ctx.reply('Все продукты отправили на фронт');
+    }
+    if (data.length < 1) {
+        Reflect.deleteProperty(products, data[1]);
+    }
+    else {
+        data.forEach(value => (Reflect.deleteProperty(products, value)));
+    }
+    yield ctx.reply('Удалено успешно');
+}))
+    .command('getProds', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    let data = ctx.message.text.split(' ')[1];
+    yield ctx.reply(`${Object.keys(products)}`);
+}))
+    .command('delEmp', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    let data = ctx.message.text.split(' ');
+    if (data.length <= 0) {
+        yield ctx.reply('Всех работников мобилизовали');
+    }
+    if (data.length == 1) {
+        Reflect.deleteProperty(emps, data[1]);
+    }
+    else {
+        data.forEach(value => (Reflect.deleteProperty(emps, value)));
+    }
+    yield ctx.reply('Удалено успешно');
+}))
+    .command('delShop', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    let data = ctx.message.text.split(' ');
+    if (data.length <= 0) {
+        yield ctx.reply('Все магазины закрыли');
+    }
+    if (data.length == 1) {
+        Reflect.deleteProperty(shops, data[1]);
+    }
+    else {
+        data.forEach(value => (Reflect.deleteProperty(shops, value)));
+    }
+    yield ctx.reply('Удалено успешно');
 }));
