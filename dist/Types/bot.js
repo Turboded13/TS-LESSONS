@@ -12,10 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContextWithArgs = void 0;
 const telegraf_1 = require("telegraf");
 const start_1 = __importDefault(require("../bot/handlers/start"));
 const log_1 = __importDefault(require("../bot/middlewares/log"));
 const shop_1 = __importDefault(require("../bot/handlers/shop"));
+class ContextWithArgs extends telegraf_1.Context {
+    constructor() {
+        super(...arguments);
+        this.args = [];
+    }
+}
+exports.ContextWithArgs = ContextWithArgs;
 class Bot {
     constructor(token) {
         this.launch = () => __awaiter(this, void 0, void 0, function* () { return this.bot.launch().then(() => { var _a; return console.log(`Bot @${(_a = this.bot.botInfo) === null || _a === void 0 ? void 0 : _a.username} lauched`); }); });

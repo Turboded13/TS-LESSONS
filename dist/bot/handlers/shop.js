@@ -18,6 +18,7 @@ const products = {};
 const shops = {};
 exports.default = new telegraf_1.Composer()
     .command('addEmp', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    ctx.args;
     let data = ctx.message.text.split(' ');
     let emp1 = new employee_1.Employee(data[1], data[2], +data[3], data[4], data[5] == 'true', data[6]);
     emps[data[1]] = emp1;
@@ -33,20 +34,15 @@ exports.default = new telegraf_1.Composer()
     let data = ctx.message.text.split(' ');
     let data_prods = data[4].split(',');
     let prods1 = [];
-    data_prods.forEach(value => {
-        if (value in products) {
-            prods1.push(products.value);
-        }
-        else { }
+    data_prods.forEach(name => {
+        if (name in products)
+            prods1.push(products[name]);
     });
     let data_emps = data[5].split(',');
     let emps1 = [];
     data_emps.forEach(value => {
-        if (value in Object.keys(emps)) {
-            emps1.push(emps.value);
-        }
-        else {
-        }
+        if (value in Object.keys(emps))
+            emps1.push(emps[value]);
     });
     let shop1 = new shop_1.Shop(data[1], +data[2], +data[3], prods1, emps1);
     console.log(shop1);
@@ -56,16 +52,11 @@ exports.default = new telegraf_1.Composer()
     yield ctx.reply(`${Object.keys(shops)}`);
 }))
     .command('delProd', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    let data = ctx.message.text.split(' ');
-    if (data.length <= 0) {
-        yield ctx.reply('Все продукты отправили на фронт');
+    let data = ctx.message.text.split(' ').slice(1);
+    if (!Object.keys(products).length) {
+        return yield ctx.reply('Все продукты отправили на фронт');
     }
-    if (data.length < 1) {
-        Reflect.deleteProperty(products, data[1]);
-    }
-    else {
-        data.forEach(value => (Reflect.deleteProperty(products, value)));
-    }
+    data.forEach(value => (Reflect.deleteProperty(products, value)));
     yield ctx.reply('Удалено успешно');
 }))
     .command('getProds', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
