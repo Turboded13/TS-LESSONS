@@ -27,15 +27,14 @@ exports.default = new telegraf_1.Composer()
 }))
     .command('addProduct', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     let data = ctx.message.text.split(' ');
-    let prod = new product_1.Product(data[1], +data[2], +data[3]);
-    products[data[1]] = prod;
+    products[data[1]] = new product_1.Product(data[1], +data[2], +data[3]);
 }))
     .command('addShop', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     let data = ctx.message.text.split(' ');
     let data_prods = data[4].split(',');
     let prods1 = [];
     data_prods.forEach(value => {
-        if (value in Object.keys(products)) {
+        if (value in products) {
             prods1.push(products.value);
         }
         else { }
@@ -50,6 +49,7 @@ exports.default = new telegraf_1.Composer()
         }
     });
     let shop1 = new shop_1.Shop(data[1], +data[2], +data[3], prods1, emps1);
+    console.log(shop1);
     shops[data[1]] = shop1;
 }))
     .command('getShops', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
